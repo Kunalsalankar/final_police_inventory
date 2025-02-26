@@ -1,74 +1,168 @@
-import { Image, StyleSheet, Platform } from 'react-native';
-
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import React from 'react';
+import { StyleSheet, View, Text, SafeAreaView, ScrollView } from 'react-native';
+import { Button } from 'react-native-paper';
+import { Link, useRouter } from 'expo-router';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import Colors from '@/constants/Colors';
 
 export default function HomeScreen() {
+  const router = useRouter();
+
+  const handleLoginPress = () => {
+    router.push('/(tabs)/dashboard');
+  };
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12'
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView 
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollViewContent}
+        showsVerticalScrollIndicator={false} // Hides the scroll indicator for a cleaner look
+      >
+        {/* Logo and Title Section */}
+        <View style={styles.logoContainer}>
+          <View style={styles.logoWrapper}>
+            <MaterialCommunityIcons 
+              name="police-badge" 
+              size={80} 
+              color={Colors.primary}
+            />
+          </View>
+          
+          <Text style={styles.title}>EquipTrack</Text>
+          <Text style={styles.subtitle}>
+            Hardware Inventory Management for Police Department
+          </Text>
+        </View>
+
+        {/* Features Section */}
+        <View style={styles.featureContainer}>
+          <Text style={styles.featureTitle}>Features</Text>
+          
+          <View style={styles.featureList}>
+            <FeatureItem text="Real-time tracking of hardware assets" />
+            <FeatureItem text="Seamless asset transfers between officers" />
+            <FeatureItem text="Maintenance and lifecycle management" />
+            <FeatureItem text="Automated alerts and notifications" />
+            <FeatureItem text="Analytics and usage reports" />
+          </View>
+        </View>
+
+        {/* Login Button Section */}
+        <View style={styles.buttonContainer}>
+          <Button 
+            mode="contained" 
+            style={styles.button} 
+            labelStyle={styles.buttonLabel}
+            onPress={handleLoginPress}
+          >
+            Login to System
+          </Button>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
+// FeatureItem component remains the same
+const FeatureItem = ({ text }) => (
+  <View style={styles.featureItem}>
+    <Text style={styles.featureText}>• {text}</Text>
+  </View>
+);
+
+// Updated styles
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  safeArea: {
+    flex: 1,
+    backgroundColor: Colors.background,
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollViewContent: {
+    padding: 20,
+    flexGrow: 1, // Ensures content can grow and be scrollable
+  },
+  // ... rest of the styles remain the same ...
+  logoContainer: {
     alignItems: 'center',
-    gap: 8,
+    marginTop: 60,
+    marginBottom: 40,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  logoWrapper: {
+    width: 120,
+    height: 120,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: Colors.white,
+    borderRadius: 60,
+    marginBottom: 20,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: Colors.primary,
+    marginBottom: 10,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: Colors.text,
+    textAlign: 'center',
+    paddingHorizontal: 20,
+    lineHeight: 22,
+  },
+  featureContainer: {
+    backgroundColor: Colors.white,
+    borderRadius: 10,
+    padding: 20,
+    marginBottom: 40,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  featureTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    color: Colors.text,
+  },
+  featureList: {
+    marginLeft: 10,
+  },
+  featureItem: {
+    flexDirection: 'row',
+    marginBottom: 12,
+  },
+  featureText: {
+    fontSize: 16,
+    color: Colors.text,
+    lineHeight: 24,
+  },
+  buttonContainer: {
+    marginBottom: 40,
+  },
+  button: {
+    padding: 8,
+    backgroundColor: Colors.primary,
+    borderRadius: 8,
+  },
+  buttonLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    letterSpacing: 0.5,
   },
 });
