@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, StatusBar, Platform } from 'react-native';
-import { Card, Avatar, Badge, Divider, Searchbar } from 'react-native-paper';
-import { Link, useRouter } from 'expo-router';
-import { Ionicons, MaterialCommunityIcons, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
-
-// Firebase imports
+import { Card, Avatar, Badge } from 'react-native-paper';
+import { useRouter } from 'expo-router';
+import { Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue } from "firebase/database";
+import { getDatabase, ref, onValue, Database } from "firebase/database";
+
+// Define interfaces for our data types
+interface Module {
+  id: string;
+  title: string;
+  icon: string;
+  description: string;
+}
 
 // Firebase configuration
 const firebaseConfig = {
@@ -18,6 +24,7 @@ const firebaseConfig = {
   appId: "1:865551458358:web:28e626110e592a7582f897",
   measurementId: "G-5SQD2GPRNB"
 };
+
 // Color scheme for police-themed app
 const PoliceColors = {
   primary: '#003366', // Dark blue
@@ -28,143 +35,102 @@ const PoliceColors = {
   text: '#333333', // Near black for text
   textLight: '#6c757d', // Gray for secondary text
   border: '#d1d9e6', // Light border color
-  success: '#28a745', // Green for success indicators
-  warning: '#ffc107', // Yellow for warnings
-  danger: '#dc3545', // Red for alerts
   lightBlue: '#e6f0ff', // Light blue for backgrounds
   gold: '#ffd700', // Gold for badge elements
   white: '#ffffff', // White color
   darkBlue: '#00264d', // Darker blue for gradients
-  lightGray: '#f0f2f5', // Light gray for backgrounds
-  darkGray: '#495057', // Dark gray for text
   shadowColor: 'rgba(0, 0, 0, 0.1)', // Shadow color
 };
 
 // Define the module routes explicitly
-const moduleRoutes = {
-  assign: '/(tabs)/assign',
-  handover: '/(tabs)/handover',
-  maintenance: '/(tabs)/maintenance',
-  inventory: '/(tabs)/inventory',
-  reports: '/(tabs)/reports',
-  alerts: '/(tabs)/alerts',
+const moduleRoutes: Record<string, string> = {
+  assign: '/assign',
+  handover: '/handover',
+  maintenance: '/maintenance',
+  inventory: '/inventory',
 };
 
-export default function DashboardScreen() {
+export default function DashboardScreen(): React.ReactElement {
   const router = useRouter();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [modules, setModules] = useState([]);
-  const [alerts, setAlerts] = useState([]);
-  const [stats, setStats] = useState({
-    totalAssets: 0,
-    pendingTasks: 0,
-    lowStock: 0
-  });
+  const [modules, setModules] = useState<Module[]>([]);
+  const [database, setDatabase] = useState<Database | null>(null);
 
-  // Fetch data from Firebase on component mount
+  // Initialize Firebase and fetch data on component mount
   useEffect(() => {
-    // Load default data first
-    setDefaultData();
-    
-    // Then try to fetch from Firebase
-    fetchFirebaseData();
+    try {
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+      
+      setDatabase(db);
+      
+      // Load default data first
+      setDefaultData();
+      
+      // Then try to fetch from Firebase
+      fetchFirebaseData(db);
+    } catch (error: any) {
+      if (error.code !== 'app/duplicate-app') {
+        console.error("Firebase initialization error:", error);
+      } else {
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        setDatabase(db);
+        
+        setDefaultData();
+        fetchFirebaseData(db);
+      }
+    }
   }, []);
 
   // Set default data
-  const setDefaultData = () => {
+  const setDefaultData = (): void => {
     // Define the main modules available in the dashboard
-    const defaultModules = [
+    const defaultModules: Module[] = [
       {
         id: 'assign',
         title: 'Assign Module',
         icon: 'account-arrow-right',
         description: 'Assign hardware assets to police officers',
-        count: 85,
       },
       {
         id: 'handover',
         title: 'Handover Module',
         icon: 'account-switch',
         description: 'Transfer assets between officers',
-        count: 32,
       },
       {
         id: 'maintenance',
         title: 'Maintenance Module',
         icon: 'tools',
         description: 'Schedule and track maintenance activities',
-        count: 17,
       },
       {
         id: 'inventory',
         title: 'Stock Inventory',
         icon: 'cube',
         description: 'Monitor and manage hardware inventory',
-        count: 127,
-      },
-      {
-        id: 'reports',
-        title: 'Analytics',
-        icon: 'stats-chart',
-        description: 'Usage and performance reports',
-        count: 45,
-      },
-      {
-        id: 'alerts',
-        title: 'Alerts',
-        icon: 'notification-important',
-        description: 'System alerts and notifications',
-        count: 8,
       },
     ];
 
-    // Alert notifications
-    const defaultAlerts = [
-      {
-        id: 1,
-        title: 'Device Lifecycle Alert',
-        message: '15 laptops approaching end of lifecycle (3 months remaining)',
-        type: 'warning',
-        icon: 'timer-outline',
-      },
-      {
-        id: 2,
-        title: 'Maintenance Due',
-        message: 'Server room air conditioning maintenance overdue by 5 days',
-        type: 'danger',
-        icon: 'tools',
-      },
-    ];
-
-    // Set default data
     setModules(defaultModules);
-    setAlerts(defaultAlerts);
-    setStats({
-      totalAssets: 1245,
-      pendingTasks: 17,
-      lowStock: 8
-    });
   };
 
   // Fetch data from Firebase
-  const fetchFirebaseData = () => {
+  const fetchFirebaseData = (db: Database): void => {
     try {
       // Fetch modules data
-      const modulesRef = ref(database, 'modules');
+      const modulesRef = ref(db, 'modules');
       onValue(modulesRef, (snapshot) => {
         const data = snapshot.val();
         if (data) setModules(data);
       });
-
-      // Fetch other data as needed
-      // This is simplified for brevity
     } catch (error) {
       console.error("Error fetching data from Firebase:", error);
     }
   };
 
   // Helper function to get the appropriate icon for module
-  const getModuleIcon = (iconName) => {
+  const getModuleIcon = (iconName: string): React.ReactNode => {
     switch (iconName) {
       case 'account-arrow-right':
         return <MaterialCommunityIcons name="account-arrow-right" size={32} color={PoliceColors.primary} />;
@@ -174,34 +140,15 @@ export default function DashboardScreen() {
         return <FontAwesome5 name="tools" size={28} color={PoliceColors.primary} />;
       case 'cube':
         return <Ionicons name="cube" size={30} color={PoliceColors.primary} />;
-      case 'stats-chart':
-        return <Ionicons name="stats-chart" size={30} color={PoliceColors.primary} />;
-      case 'notification-important':
-        return <MaterialIcons name="notification-important" size={30} color={PoliceColors.primary} />;
       default:
         return <Ionicons name="grid" size={30} color={PoliceColors.primary} />;
     }
   };
-
-  // Helper function to get alert color
-  const getAlertColor = (type) => {
-    switch (type) {
-      case 'danger':
-        return PoliceColors.danger;
-      case 'warning':
-        return PoliceColors.warning;
-      case 'success':
-        return PoliceColors.success;
-      default:
-        return PoliceColors.textLight;
-    }
-  };
   
-  // Handles navigation to module screens safely with TypeScript
-  const navigateToModule = (moduleId) => {
-    // Use the predefined routes or default to a safe route
+  // Handles navigation to module screens
+  const navigateToModule = (moduleId: string): void => {
     const route = moduleRoutes[moduleId] || '/(tabs)';
-    router.push(route);
+    router.push(route as any);
   };
 
   return (
@@ -222,7 +169,7 @@ export default function DashboardScreen() {
           </View>
           <TouchableOpacity 
             style={styles.profileButton} 
-            onPress={() => router.push('/(tabs)/profile')}
+            onPress={() => router.push('/(tabs)/profile' as any)}
           >
             <Avatar.Text size={40} label="IS" style={styles.avatar} color={PoliceColors.white} />
           </TouchableOpacity>
@@ -236,76 +183,13 @@ export default function DashboardScreen() {
             <Text style={styles.welcomeText}>Welcome back,</Text>
             <Text style={styles.userName}>Inspector Sharma</Text>
           </View>
-          <Link href="/(tabs)/notifications" asChild>
-            <TouchableOpacity style={styles.notificationButton}>
-              <Ionicons name="notifications" size={24} color={PoliceColors.text} />
-              <Badge style={styles.badge}>3</Badge>
-            </TouchableOpacity>
-          </Link>
-        </View>
-
-        {/* Search bar */}
-        <View style={styles.searchContainer}>
-          <Searchbar
-            placeholder="Search assets, officers, or reports..."
-            onChangeText={setSearchQuery}
-            value={searchQuery}
-            style={styles.searchBar}
-            iconColor={PoliceColors.primary}
-          />
-        </View>
-
-        {/* Quick stats */}
-        <Text style={styles.sectionTitle}>
-          <Ionicons name="stats-chart" size={18} color={PoliceColors.primary} style={styles.sectionIcon} />
-          Quick Stats
-        </Text>
-        <View style={styles.statsContainer}>
-          <Card style={styles.statCard}>
-            <Card.Content style={styles.statCardContent}>
-              <View style={[styles.statIconContainer, { backgroundColor: `${PoliceColors.primary}20` }]}>
-                <Ionicons name="hardware-chip" size={24} color={PoliceColors.primary} />
-              </View>
-              <Text style={styles.statValue}>{stats.totalAssets.toLocaleString()}</Text>
-              <Text style={styles.statLabel}>Total Assets</Text>
-            </Card.Content>
-          </Card>
-          <Card style={styles.statCard}>
-            <Card.Content style={styles.statCardContent}>
-              <View style={[styles.statIconContainer, { backgroundColor: `${PoliceColors.warning}20` }]}>
-                <FontAwesome5 name="tools" size={20} color={PoliceColors.warning} />
-              </View>
-              <Text style={styles.statValue}>{stats.pendingTasks}</Text>
-              <Text style={styles.statLabel}>Pending Tasks</Text>
-            </Card.Content>
-          </Card>
-          <Card style={styles.statCard}>
-            <Card.Content style={styles.statCardContent}>
-              <View style={[styles.statIconContainer, { backgroundColor: `${PoliceColors.danger}20` }]}>
-                <MaterialIcons name="inventory" size={24} color={PoliceColors.danger} />
-              </View>
-              <Text style={styles.statValue}>{stats.lowStock}</Text>
-              <Text style={styles.statLabel}>Low Stock</Text>
-            </Card.Content>
-          </Card>
-        </View>
-
-        {/* Alert Section */}
-        <Text style={styles.sectionTitle}>
-          <Ionicons name="alert-circle" size={18} color={PoliceColors.primary} style={styles.sectionIcon} />
-          Critical Alerts
-        </Text>
-        <View style={styles.alertsContainer}>
-          {alerts.map((alert) => (
-            <Card key={alert.id} style={[styles.alertCard, { borderLeftColor: getAlertColor(alert.type), borderLeftWidth: 4 }]}>
-              <Card.Content style={styles.alertCardContent}>
-                <View style={styles.alertTextContainer}>
-                  <Text style={styles.alertTitle}>{alert.title}</Text>
-                  <Text style={styles.alertMessage}>{alert.message}</Text>
-                </View>
-              </Card.Content>
-            </Card>
-          ))}
+          <TouchableOpacity 
+            style={styles.notificationButton}
+            onPress={() => router.push('/(tabs)/notifications' as any)}
+          >
+            <Ionicons name="notifications" size={24} color={PoliceColors.text} />
+            <Badge style={styles.badge}>3</Badge>
+          </TouchableOpacity>
         </View>
 
         {/* Modules Grid Section */}
@@ -324,9 +208,7 @@ export default function DashboardScreen() {
                 <Card.Content style={styles.moduleCardContent}>
                   <View style={styles.moduleIconContainer}>{getModuleIcon(module.icon)}</View>
                   <Text style={styles.moduleTitle}>{module.title}</Text>
-                  <View style={styles.moduleCountContainer}>
-                    <Text style={styles.moduleCount}>{module.count}</Text>
-                  </View>
+                  <Text style={styles.moduleDescription}>{module.description}</Text>
                 </Card.Content>
               </Card>
             </TouchableOpacity>
@@ -437,18 +319,6 @@ const styles = StyleSheet.create({
     backgroundColor: PoliceColors.accent,
   },
 
-  // Search container styles
-  searchContainer: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    backgroundColor: PoliceColors.cardBackground,
-  },
-  searchBar: {
-    elevation: 2,
-    borderRadius: 10,
-    height: 45,
-  },
-
   // Section title styles
   sectionTitle: {
     fontSize: 18,
@@ -462,75 +332,6 @@ const styles = StyleSheet.create({
   },
   sectionIcon: {
     marginRight: 8,
-  },
-
-  // Stats section styles
-  statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 20,
-  },
-  statCard: {
-    width: '31%',
-    elevation: 3,
-    borderRadius: 15,
-    overflow: 'hidden',
-  },
-  statCardContent: {
-    alignItems: 'center',
-    padding: 15,
-  },
-  statIconContainer: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
-    shadowColor: PoliceColors.shadowColor,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 2,
-  },
-  statLabel: {
-    fontSize: 12,
-    color: PoliceColors.textLight,
-    textAlign: 'center',
-    fontWeight: '500',
-  },
-  statValue: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: PoliceColors.text,
-    marginBottom: 6,
-  },
-
-  // Alert section styles
-  alertsContainer: {
-    marginHorizontal: 20,
-  },
-  alertCard: {
-    marginBottom: 10,
-    borderRadius: 12,
-    overflow: 'hidden',
-    elevation: 2,
-  },
-  alertCardContent: {
-    padding: 15,
-  },
-  alertTextContainer: {
-    flex: 1,
-  },
-  alertTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: PoliceColors.text,
-    marginBottom: 4,
-  },
-  alertMessage: {
-    fontSize: 14,
-    color: PoliceColors.textLight,
   },
 
   // Modules grid styles
@@ -565,17 +366,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: PoliceColors.text,
     textAlign: 'center',
-    marginBottom: 10,
+    marginBottom: 8,
   },
-  moduleCountContainer: {
-    backgroundColor: PoliceColors.lightBlue,
-    paddingHorizontal: 12,
-    paddingVertical: 5,
-    borderRadius: 12,
-  },
-  moduleCount: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: PoliceColors.primary,
-  },
+  moduleDescription: {
+    fontSize: 12,
+    color: PoliceColors.textLight,
+    textAlign: 'center',
+  }
 });

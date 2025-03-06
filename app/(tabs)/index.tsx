@@ -1,81 +1,83 @@
 import React from 'react';
-import { StyleSheet, View, Text, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView, ScrollView, StatusBar } from 'react-native';
 import { Button } from 'react-native-paper';
-import { Link, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Colors from '@/constants/Colors';
 
-export default function HomeScreen() {
-  const router = useRouter();
-
-  const handleLoginPress = () => {
-    router.push('/(tabs)/dashboard');
-  };
-
-  return (
-    <SafeAreaView style={styles.safeArea}>
-      <ScrollView 
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollViewContent}
-        showsVerticalScrollIndicator={false} // Hides the scroll indicator for a cleaner look
-      >
-        {/* Logo and Title Section */}
-        <View style={styles.logoContainer}>
-          <View style={styles.logoWrapper}>
-            <MaterialCommunityIcons 
-              name="police-badge" 
-              size={80} 
-              color={Colors.primary}
-            />
-          </View>
-          
-          <Text style={styles.title}>EquipTrack</Text>
-          <Text style={styles.subtitle}>
-            Hardware Inventory Management for Police Department
-          </Text>
-        </View>
-
-        {/* Features Section */}
-        <View style={styles.featureContainer}>
-          <Text style={styles.featureTitle}>Features</Text>
-          
-          <View style={styles.featureList}>
-            <FeatureItem text="Real-time tracking of hardware assets" />
-            <FeatureItem text="Seamless asset transfers between officers" />
-            <FeatureItem text="Maintenance and lifecycle management" />
-            <FeatureItem text="Automated alerts and notifications" />
-            <FeatureItem text="Analytics and usage reports" />
-          </View>
-        </View>
-
-        {/* Login Button Section */}
-        <View style={styles.buttonContainer}>
-          <Button 
-            mode="contained" 
-            style={styles.button} 
-            labelStyle={styles.buttonLabel}
-            onPress={handleLoginPress}
-          >
-            Login to System
-          </Button>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+// Define the type for the FeatureItem props
+interface FeatureItemProps {
+  text: string;
 }
 
-// FeatureItem component remains the same
-const FeatureItem = ({ text }) => (
+// The FeatureItem component with proper TypeScript typing
+const FeatureItem: React.FC<FeatureItemProps> = ({ text }) => (
   <View style={styles.featureItem}>
     <Text style={styles.featureText}>• {text}</Text>
   </View>
 );
 
+export default function Index() {
+  const router = useRouter();
+
+  const handleLoginPress = (): void => {
+    router.push('/dashboard');
+  };
+
+  return (
+    <View style={styles.container}>
+      <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
+      
+      <SafeAreaView style={styles.safeArea}>
+        <ScrollView 
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollViewContent}
+          showsVerticalScrollIndicator={false}
+        >
+          {/* Logo and Title Section */}
+          <View style={styles.logoContainer}>
+            <View style={styles.logoWrapper}>
+              <MaterialCommunityIcons 
+                name="police-badge" 
+                size={80} 
+                color={Colors.primary}
+              />
+            </View>
+            
+            <Text style={styles.title}>EquipTrack</Text>
+            <Text style={styles.subtitle}>
+              Hardware Inventory Management for Police Department
+            </Text>
+          </View>
+
+          {/* Features Section */}
+          
+
+          {/* Login Button Section */}
+          <View style={styles.buttonContainer}>
+            <Button 
+              mode="contained" 
+              style={styles.button} 
+              labelStyle={styles.buttonLabel}
+              onPress={handleLoginPress}
+            >
+              Login to System
+            </Button>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </View>
+  );
+}
+
 // Updated styles
 const styles = StyleSheet.create({
-  safeArea: {
+  container: {
     flex: 1,
     backgroundColor: Colors.background,
+  },
+  safeArea: {
+    flex: 1,
   },
   scrollView: {
     flex: 1,
@@ -84,7 +86,6 @@ const styles = StyleSheet.create({
     padding: 20,
     flexGrow: 1, // Ensures content can grow and be scrollable
   },
-  // ... rest of the styles remain the same ...
   logoContainer: {
     alignItems: 'center',
     marginTop: 60,
