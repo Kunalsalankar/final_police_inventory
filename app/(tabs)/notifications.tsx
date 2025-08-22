@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { Card } from 'react-native-paper';
-import Colors from '@/constants/Colors';
+import Colors from '../../constants/Colors';
 
 // Sample notification data - in a real app, this would come from a backend
 const notifications = [

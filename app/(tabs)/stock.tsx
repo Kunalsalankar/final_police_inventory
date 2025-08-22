@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { collection, addDoc, getDocs, query, orderBy, Timestamp, doc, getDoc, updateDoc, where } from 'firebase/firestore';
-import { db } from './firebaseConfig';
+import { db } from '../../lib/firebase';
 import { toast } from 'react-hot-toast';
 import { FiPlus, FiMinus, FiTrash2, FiEdit, FiX } from 'react-icons/fi';
 import { BiSearchAlt } from 'react-icons/bi';
-import { useAuth } from '../contexts/AuthContext'; // Updated path
+import { useAuth } from '../../contexts/AuthContext';
 // Define types for our data
 interface StockItem {
   id: string;
@@ -25,6 +25,26 @@ interface Department {
   name: string;
 }
 
+interface ReportItem {
+  id: string;
+  itemName: string;
+  category: string;
+  department: string;
+  quantity: number;
+  threshold: number;
+  status: string;
+}
+
+interface ReportData {
+  totalItems: number;
+  itemsByStatus: Record<string, number>;
+  itemsByCategory: Record<string, number>;
+  itemsByDepartment: Record<string, number>;
+  attentionItems: ReportItem[];
+  generatedAt: string;
+  generatedBy: string;
+}
+
 const StockManagement: React.FC = () => {
   // State variables
   const [stockItems, setStockItems] = useState<StockItem[]>([]);
@@ -41,7 +61,7 @@ const StockManagement: React.FC = () => {
   const [showLowStock, setShowLowStock] = useState<boolean>(false);
   const [isTransferModalOpen, setIsTransferModalOpen] = useState<boolean>(false);
   const [currentItem, setCurrentItem] = useState<StockItem | null>(null);
-  const [reportData, setReportData] = useState<any>(null);
+  const [reportData, setReportData] = useState<ReportData | null>(null);
   const [showReport, setShowReport] = useState<boolean>(false);
 
   const { currentUser  } = useAuth();
@@ -1054,7 +1074,7 @@ const StockManagement: React.FC = () => {
               <div className="bg-white p-4 border rounded-lg shadow">
                 <h3 className="text-lg font-semibold mb-3">Category Breakdown</h3>
                 <div className="space-y-2">
-                  {Object.entries(reportData.itemsByCategory).map(([category, count]) => (
+                  {Object.entries(reportData.itemsByCategory).map(([category, count]: [string, number]) => (
                     <div key={category} className="flex justify-between">
                       <span>{category}:</span>
                       <span className="font-medium">{count}</span>
@@ -1068,7 +1088,7 @@ const StockManagement: React.FC = () => {
             <div className="mb-6 bg-white p-4 border rounded-lg shadow">
               <h3 className="text-lg font-semibold mb-3">Department Breakdown</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {Object.entries(reportData.itemsByDepartment).map(([dept, count]) => (
+                {Object.entries(reportData.itemsByDepartment).map(([dept, count]: [string, number]) => (
                   <div key={dept} className="flex justify-between">
                     <span>{dept}:</span>
                     <span className="font-medium">{count}</span>
@@ -1094,7 +1114,7 @@ const StockManagement: React.FC = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {reportData.attentionItems.map((item) => (
+                      {reportData.attentionItems.map((item: ReportItem) => (
                         <tr key={item.id} className="border-t">
                           <td className="px-4 py-2">{item.itemName}</td>
                           <td className="px-4 py-2">{item.category}</td>

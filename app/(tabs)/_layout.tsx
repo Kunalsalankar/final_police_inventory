@@ -1,21 +1,22 @@
 import React from 'react';
 import { Stack } from 'expo-router';
-
+import { AuthProvider } from '@/contexts/AuthContext';
 export default function RootLayout() {
   return (
-    <Stack
-      initialRouteName="index"
-      screenOptions={{
-        headerShown: false,  // This hides the header completely
-        title: '',           // This removes any title text
-        headerStyle: {
-          height: 0
-        },
-        contentStyle: {
-          backgroundColor: 'transparent'
-        },
-        animation: 'none'
-      }}
-    />
+    <AuthProvider>
+      <Stack
+        initialRouteName="index"
+        screenOptions={{
+          headerShown: false,
+          title: '',
+          headerStyle: {
+          },
+          contentStyle: {
+            backgroundColor: 'transparent'
+          },
+          animation: 'none'
+        }}
+      />
+    </AuthProvider>
   );
 }

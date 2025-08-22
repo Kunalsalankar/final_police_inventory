@@ -8,7 +8,7 @@ interface User {
 
 // The Auth Context type definition
 interface AuthContextType {
-  currentUser: User | null; // Fixed the syntax error here
+  currentUser: User | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -24,33 +24,25 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   // Login function implementation
   const login = async (email: string, password: string) => {
     try {
-      // This is where you would normally call your authentication service
-      // For example: const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      
-      // Simulate successful login for now
+      // Replace with real auth later
       setCurrentUser({ email, displayName: email.split('@')[0] });
     } catch (error) {
-      console.error("Login failed:", error);
-      throw error; // Re-throw to let the component handle the error
+      console.error('Login failed:', error);
+      throw error;
     }
   };
 
   // Logout function implementation
   const logout = async () => {
     try {
-      // This is where you would normally call your authentication service
-      // For example: await signOut(auth);
-      
-      // Clear the user state
       setCurrentUser(null);
     } catch (error) {
-      console.error("Logout failed:", error);
-      throw error; // Re-throw to let the component handle the error
+      console.error('Logout failed:', error);
+      throw error;
     }
   };
 
-  // The value that will be available through the context
-  const value = {
+  const value: AuthContextType = {
     currentUser,
     login,
     logout
@@ -71,3 +63,5 @@ export const useAuth = () => {
   }
   return context;
 };
+
+

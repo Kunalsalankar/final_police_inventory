@@ -15,7 +15,7 @@ import { Card, Divider, Button, Menu, IconButton } from 'react-native-paper';
 import { MaterialIcons, MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { collection, addDoc, getDocs, query, orderBy, Timestamp, doc, getDoc, updateDoc, where } from 'firebase/firestore';
-import { db } from './firebaseConfig';
+import { db } from '../../lib/firebase';
 
 // Define interfaces
 interface MaintenanceTask {

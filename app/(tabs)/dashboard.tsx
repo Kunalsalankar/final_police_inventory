@@ -3,8 +3,8 @@ import { StyleSheet, View, Text, ScrollView, TouchableOpacity, StatusBar, Platfo
 import { Card, Avatar, Badge } from 'react-native-paper';
 import { useRouter } from 'expo-router';
 import { Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue, Database } from "firebase/database";
+import { ref, onValue, Database } from "firebase/database";
+import { rtdb } from '../../lib/firebase';
 
 // Define interfaces for our data types
 interface Module {
@@ -14,16 +14,6 @@ interface Module {
   description: string;
 }
 
-// Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyBZYvwt5dOL2jr7C7E0T7kHmy1wrVpvsCQ",
-  authDomain: "omkar-bcfd4.firebaseapp.com",
-  projectId: "omkar-bcfd4",
-  storageBucket: "omkar-bcfd4.firebasestorage.app",
-  messagingSenderId: "865551458358",
-  appId: "1:865551458358:web:28e626110e592a7582f897",
-  measurementId: "G-5SQD2GPRNB"
-};
 
 // Color scheme for police-themed app
 const PoliceColors = {
@@ -57,29 +47,10 @@ export default function DashboardScreen(): React.ReactElement {
 
   // Initialize Firebase and fetch data on component mount
   useEffect(() => {
-    try {
-      const app = initializeApp(firebaseConfig);
-      const db = getDatabase(app);
-      
-      setDatabase(db);
-      
-      // Load default data first
-      setDefaultData();
-      
-      // Then try to fetch from Firebase
-      fetchFirebaseData(db);
-    } catch (error: any) {
-      if (error.code !== 'app/duplicate-app') {
-        console.error("Firebase initialization error:", error);
-      } else {
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-        setDatabase(db);
-        
-        setDefaultData();
-        fetchFirebaseData(db);
-      }
-    }
+    const db = rtdb;
+    setDatabase(db);
+    setDefaultData();
+    fetchFirebaseData(db);
   }, []);
 
   // Set default data
@@ -178,19 +149,7 @@ export default function DashboardScreen(): React.ReactElement {
 
       <ScrollView style={styles.scrollContainer} showsVerticalScrollIndicator={false}>
         {/* Welcome section */}
-        <View style={styles.welcomeSection}>
-          <View>
-            <Text style={styles.welcomeText}>Welcome back,</Text>
-            <Text style={styles.userName}>Inspector Sharma</Text>
-          </View>
-          <TouchableOpacity 
-            style={styles.notificationButton}
-            onPress={() => router.push('/(tabs)/notifications' as any)}
-          >
-            <Ionicons name="notifications" size={24} color={PoliceColors.text} />
-            <Badge style={styles.badge}>3</Badge>
-          </TouchableOpacity>
-        </View>
+       
 
         {/* Modules Grid Section */}
         <Text style={styles.sectionTitle}>
