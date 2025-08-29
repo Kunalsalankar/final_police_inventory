@@ -25,7 +25,7 @@ import {
 } from 'react-native-paper';
 import { useRouter } from 'expo-router';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-import Colors from '../../constants/Colors';
+import Colors from '../../../constants/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import { 
   collection, 
@@ -245,8 +245,8 @@ export default function Officer() {
   
   const handleDialogClose = () => {
     setDialogVisible(false);
-    // Navigate to dashboard
-    router.replace('/dashboard');
+    // Navigate to officer dashboard
+    router.replace('/(tabs)/inventory_officer/dashboard' as any);
   };
   
   return (
@@ -484,7 +484,7 @@ export default function Officer() {
                   Register as Police Officer
                 </Button>
                 
-                <TouchableOpacity style={styles.loginLink} onPress={() => router.replace('/')}>
+                <TouchableOpacity style={styles.loginLink} onPress={() => router.replace('/(tabs)/dashboard/login' as any)}>
                   <Text style={styles.loginText}>Already have an account? Login</Text>
                 </TouchableOpacity>
               </View>

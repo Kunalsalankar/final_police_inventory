@@ -21,7 +21,7 @@ import {
   updateDoc,
   where 
 } from 'firebase/firestore';
-import { db, auth } from '../../lib/firebase';
+import { db, auth } from '../../../lib/firebase';
 import { Card, Avatar } from 'react-native-paper';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 

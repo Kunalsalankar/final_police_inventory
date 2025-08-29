@@ -25,7 +25,7 @@ import {
   where,
   deleteDoc
 } from 'firebase/firestore';
-import { db } from '../../lib/firebase';
+import { db } from '../../../lib/firebase';
 import { Ionicons } from '@expo/vector-icons';
 
 // Define types for our data

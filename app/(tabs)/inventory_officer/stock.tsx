@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { collection, addDoc, getDocs, query, orderBy, Timestamp, doc, getDoc, updateDoc, where } from 'firebase/firestore';
-import { db } from '../../lib/firebase';
+import { db } from '../../../lib/firebase';
 import { toast } from 'react-hot-toast';
 import { FiPlus, FiMinus, FiTrash2, FiEdit, FiX } from 'react-icons/fi';
 import { BiSearchAlt } from 'react-icons/bi';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../../contexts/AuthContext';
 // Define types for our data
 interface StockItem {
   id: string;

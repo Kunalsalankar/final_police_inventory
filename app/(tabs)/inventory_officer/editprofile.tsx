@@ -16,7 +16,7 @@ import { Card, Divider } from 'react-native-paper';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { collection, doc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
-import { auth, db } from '../../lib/firebase';
+import { auth, db } from '../../../lib/firebase';
 
 // Define types for Officer data
 interface Officer {

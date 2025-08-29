@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, StatusBar, Platform, ActivityIndicator, Alert } from 'react-native';
 import { Card, Avatar, Divider } from 'react-native-paper';
 import { useRouter, useLocalSearchParams, useFocusEffect } from 'expo-router';
 import { Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
 import { collection, doc, getDoc } from 'firebase/firestore';
 import { signOut } from 'firebase/auth'; // Correct import for signOut
-import { auth, db } from '../../lib/firebase';
-import { useCallback } from 'react';
+import { auth, db } from '../../../lib/firebase';
+import { useCallback, useEffect, useState } from 'react';
 
 // Define types for better TypeScript support
 interface Officer {
@@ -138,7 +137,7 @@ export default function ProfileScreen() {
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-      router.replace('/login');
+      router.replace('/(tabs)/dashboard/login' as any);
     } catch (error) {
       Alert.alert('Error', 'Failed to sign out. Please try again.');
     }
@@ -148,7 +147,7 @@ export default function ProfileScreen() {
   const handleEditProfile = () => {
     if (userData) {
       router.push({
-        pathname: "/(tabs)/editprofile" as any, // Fix the path and cast as any
+        pathname: "/(tabs)/inventory_officer/editprofile" as any,
         params: { id: userData.id }
       });
     }

@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, Image, KeyboardAvoidingView, Platform, Alert, TouchableOpacity } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { useRouter } from 'expo-router';
-import Colors from '../../constants/Colors';
+import Colors from '../../../constants/Colors';
 import { collection, query, where, getDocs } from 'firebase/firestore';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { db, auth } from '../../lib/firebase';
+import { db, auth } from '../../../lib/firebase';
 
 // Define officer type options
 type OfficerType = 'headOfficer' | 'officer';
@@ -58,9 +58,9 @@ export default function LoginScreen() {
       
       // User found, navigate to appropriate dashboard
       if (selectedType === 'headOfficer') {
-        router.replace('/dashboard');
-      } else if(selectedType === 'officer') {
-        router.replace('/dashboardOfficer');
+router.replace('/(tabs)/inventory_officer/dashboard' as any);    
+  } else if(selectedType === 'officer') {
+        router.replace('/dashboardOfficer' as any);
       }
       
     } catch (error: unknown) {
@@ -96,8 +96,8 @@ export default function LoginScreen() {
       <View style={styles.container}>
         <View style={styles.logoContainer}>
           <Image
-            source={require('../../assets/images/logo.jpeg')}
-            style={styles.logo}
+source={require('../../../assets/images/logo.jpeg')}    
+        style={styles.logo}
             resizeMode="contain"
           />
           <Text style={styles.title}>EquipTrack</Text>
@@ -139,8 +139,7 @@ export default function LoginScreen() {
         </TouchableOpacity>
         
         <Image
-          source={require('../../assets/images/logo.jpeg')}
-          style={styles.logo}
+source={require('../../../assets/images/logo.jpeg')}          style={styles.logo}
           resizeMode="contain"
         />
         <Text style={styles.title}>EquipTrack</Text>

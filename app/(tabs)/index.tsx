@@ -36,15 +36,15 @@ export default function Index() {
   const { width } = Dimensions.get('window');
 
   const handleHeadOfficerSignUp = (): void => {
-    router.push('/head-officer');
+    router.push('/(tabs)/dashboard/head-officer' as any);
   };
 
   const handleOfficerSignUp = (): void => {
-    router.push('/officer');
+    router.push('/(tabs)/dashboard/officer' as any);
   };
 
   const handleLogin = (): void => {
-    router.push('/login');
+    router.push('/(tabs)/dashboard/login' as any);
   };
   
   return (

@@ -4,7 +4,7 @@ import { Card, Avatar, Badge } from 'react-native-paper';
 import { useRouter } from 'expo-router';
 import { Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
 import { ref, onValue, Database } from "firebase/database";
-import { rtdb } from '../../lib/firebase';
+import { rtdb } from '../../../lib/firebase';
 
 // Define interfaces for our data types
 interface Module {
@@ -34,10 +34,10 @@ const PoliceColors = {
 
 // Define the module routes explicitly
 const moduleRoutes: Record<string, string> = {
-  assign: '/assign',
-  handover: '/handover',
-  maintenance: '/maintenance',
-  inventory: '/inventory',
+  assign: '/(tabs)/inventory_officer/assign',
+  handover: '/(tabs)/inventory_officer/handover',
+  maintenance: '/(tabs)/inventory_officer/maintenance',
+  inventory: '/(tabs)/inventory_officer/inventory',
 };
 
 export default function DashboardScreen(): React.ReactElement {
@@ -140,7 +140,7 @@ export default function DashboardScreen(): React.ReactElement {
           </View>
           <TouchableOpacity 
             style={styles.profileButton} 
-            onPress={() => router.push('/(tabs)/profile' as any)}
+            onPress={() => router.push('/(tabs)/inventory_officer/profile' as any)}
           >
             <Avatar.Text size={40} label="IS" style={styles.avatar} color={PoliceColors.white} />
           </TouchableOpacity>

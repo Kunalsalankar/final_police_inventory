@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import { 
   StyleSheet, 
   View, 
@@ -25,7 +24,7 @@ import {
 } from 'react-native-paper';
 import { useRouter } from 'expo-router';
 import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-import Colors from '../../constants/Colors';
+import Colors from '../../../constants/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
 import { 
   getFirestore, 
@@ -46,6 +45,7 @@ import {
   updateProfile 
 } from 'firebase/auth';
 import { auth, db } from '@/lib/firebase';
+import { useState } from 'react';
 
 // Using centralized Firebase from '@/lib/firebase'
 
@@ -230,9 +230,9 @@ export default function HeadOfficer() {
   };
   
   const handleDialogClose = () => {
-    setDialogVisible(false);
-    // Navigate to dashboard
-    router.replace('/dashboard');
+  setDialogVisible(false);
+  // Navigate to head officer dashboard
+  router.replace('/(tabs)/head_officer/dashboard' as any);
   };
   
   return (
@@ -428,7 +428,7 @@ export default function HeadOfficer() {
                   Register as Head Officer
                 </Button>
                 
-                <TouchableOpacity style={styles.loginLink} onPress={() => router.replace('/')}>
+                <TouchableOpacity style={styles.loginLink} onPress={() => router.replace('/(tabs)/dashboard/login' as any)}>
                   <Text style={styles.loginText}>Already have an account? Login</Text>
                 </TouchableOpacity>
               </View>

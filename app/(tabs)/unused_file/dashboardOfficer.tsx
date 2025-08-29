@@ -4,7 +4,7 @@ import { Card, Avatar, Badge, Button } from 'react-native-paper';
 import { useRouter } from 'expo-router';
 import { Ionicons, MaterialCommunityIcons, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import { ref, onValue, Database } from "firebase/database";
-import { rtdb } from '../../lib/firebase';
+import { rtdb } from '../../../lib/firebase';
 
 // Define interfaces for our data types
 interface Module {

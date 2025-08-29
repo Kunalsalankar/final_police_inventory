@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import { Card, Button, Divider, Chip, Searchbar, List, Avatar } from 'react-native-paper';
 import { MaterialIcons, MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-import { db } from '../../lib/firebase';
+import { db } from '../../../lib/firebase';
 import { 
   collection, 
   addDoc, 
