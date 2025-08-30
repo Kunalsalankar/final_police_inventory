@@ -284,10 +284,19 @@ export default function HeadOfficer() {
                       value={firstName}
                       onChangeText={setFirstName}
                       mode="outlined"
-                      style={styles.input}
+                      style={[styles.input, {color: '#000000'}]}
                       error={!!firstNameError}
                       left={<TextInput.Icon icon="account" />}
-                      theme={{ colors: { text: '#000000', placeholder: '#555555' } }}
+                      theme={{ 
+                        colors: { 
+                          text: '#000000', 
+                          placeholder: '#666666', 
+                          primary: Colors.primary,
+                          onSurface: '#000000'
+                        } 
+                      }}
+                      selectionColor="#000000"
+                      placeholderTextColor="#666666"
                     />
                     {!!firstNameError && <HelperText type="error" style={styles.errorText}>{firstNameError}</HelperText>}
                   </View>
@@ -298,10 +307,19 @@ export default function HeadOfficer() {
                       value={lastName}
                       onChangeText={setLastName}
                       mode="outlined"
-                      style={styles.input}
+                      style={[styles.input, {color: '#000000'}]}
                       error={!!lastNameError}
                       left={<TextInput.Icon icon="account" />}
-                      theme={{ colors: { text: '#000000', placeholder: '#555555' } }}
+                      theme={{ 
+                        colors: { 
+                          text: '#000000', 
+                          placeholder: '#666666', 
+                          primary: Colors.primary,
+                          onSurface: '#000000'
+                        } 
+                      }}
+                      selectionColor="#000000"
+                      placeholderTextColor="#666666"
                     />
                     {!!lastNameError && <HelperText type="error" style={styles.errorText}>{lastNameError}</HelperText>}
                   </View>
@@ -312,12 +330,21 @@ export default function HeadOfficer() {
                   value={email}
                   onChangeText={setEmail}
                   mode="outlined"
-                  style={styles.input}
+                  style={[styles.input, {color: '#000000'}]}
                   keyboardType="email-address"
                   autoCapitalize="none"
                   error={!!emailError}
                   left={<TextInput.Icon icon="email" />}
-                  theme={{ colors: { text: '#000000', placeholder: '#555555' } }}
+                  theme={{ 
+                    colors: { 
+                      text: '#000000', 
+                      placeholder: '#666666', 
+                      primary: Colors.primary,
+                      onSurface: '#000000'
+                    } 
+                  }}
+                  selectionColor="#000000"
+                  placeholderTextColor="#666666"
                 />
                 {!!emailError && <HelperText type="error" style={styles.errorText}>{emailError}</HelperText>}
                 
@@ -328,11 +355,20 @@ export default function HeadOfficer() {
                       value={password}
                       onChangeText={setPassword}
                       mode="outlined"
-                      style={styles.input}
+                      style={[styles.input, {color: '#000000'}]}
                       secureTextEntry
                       error={!!passwordError}
                       left={<TextInput.Icon icon="lock" />}
-                      theme={{ colors: { text: '#000000', placeholder: '#555555' } }}
+                      theme={{ 
+                        colors: { 
+                          text: '#000000', 
+                          placeholder: '#666666', 
+                          primary: Colors.primary,
+                          onSurface: '#000000'
+                        } 
+                      }}
+                      selectionColor="#000000"
+                      placeholderTextColor="#666666"
                     />
                     {!!passwordError && <HelperText type="error" style={styles.errorText}>{passwordError}</HelperText>}
                   </View>
@@ -343,11 +379,20 @@ export default function HeadOfficer() {
                       value={confirmPassword}
                       onChangeText={setConfirmPassword}
                       mode="outlined"
-                      style={styles.input}
+                      style={[styles.input, {color: '#000000'}]}
                       secureTextEntry
                       error={!!confirmPasswordError}
                       left={<TextInput.Icon icon="lock-check" />}
-                      theme={{ colors: { text: '#000000', placeholder: '#555555' } }}
+                      theme={{ 
+                        colors: { 
+                          text: '#000000', 
+                          placeholder: '#666666', 
+                          primary: Colors.primary,
+                          onSurface: '#000000'
+                        } 
+                      }}
+                      selectionColor="#000000"
+                      placeholderTextColor="#666666"
                     />
                     {!!confirmPasswordError && <HelperText type="error" style={styles.errorText}>{confirmPasswordError}</HelperText>}
                   </View>
@@ -362,10 +407,19 @@ export default function HeadOfficer() {
                       value={badgeNumber}
                       onChangeText={setBadgeNumber}
                       mode="outlined"
-                      style={styles.input}
+                      style={[styles.input, {color: '#000000'}]}
                       error={!!badgeNumberError}
                       left={<TextInput.Icon icon="badge-account" />}
-                      theme={{ colors: { text: '#000000', placeholder: '#555555' } }}
+                      theme={{ 
+                        colors: { 
+                          text: '#000000', 
+                          placeholder: '#666666', 
+                          primary: Colors.primary,
+                          onSurface: '#000000'
+                        } 
+                      }}
+                      selectionColor="#000000"
+                      placeholderTextColor="#666666"
                     />
                     {!!badgeNumberError && <HelperText type="error" style={styles.errorText}>{badgeNumberError}</HelperText>}
                   </View>
@@ -376,11 +430,20 @@ export default function HeadOfficer() {
                       value={phone}
                       onChangeText={setPhone}
                       mode="outlined"
-                      style={styles.input}
+                      style={[styles.input, {color: '#000000'}]}
                       keyboardType="phone-pad"
                       error={!!phoneError}
                       left={<TextInput.Icon icon="phone" />}
-                      theme={{ colors: { text: '#000000', placeholder: '#555555' } }}
+                      theme={{ 
+                        colors: { 
+                          text: '#000000', 
+                          placeholder: '#666666', 
+                          primary: Colors.primary,
+                          onSurface: '#000000'
+                        } 
+                      }}
+                      selectionColor="#000000"
+                      placeholderTextColor="#666666"
                     />
                     {!!phoneError && <HelperText type="error" style={styles.errorText}>{phoneError}</HelperText>}
                   </View>
@@ -392,11 +455,20 @@ export default function HeadOfficer() {
                   value={department}
                   onChangeText={setDepartment}
                   mode="outlined"
-                  style={styles.input}
+                  style={[styles.input, {color: '#000000'}]}
                   error={!!departmentError}
                   left={<TextInput.Icon icon="office-building" />}
                   placeholder="Enter your department name"
-                  theme={{ colors: { text: '#000000', placeholder: '#555555' } }}
+                  theme={{ 
+                    colors: { 
+                      text: '#000000', 
+                      placeholder: '#666666', 
+                      primary: Colors.primary,
+                      onSurface: '#000000'
+                    } 
+                  }}
+                  selectionColor="#000000"
+                  placeholderTextColor="#666666"
                 />
                 {!!departmentError && <HelperText type="error" style={styles.errorText}>{departmentError}</HelperText>}
                 

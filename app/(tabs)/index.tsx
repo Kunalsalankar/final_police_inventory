@@ -80,7 +80,7 @@ export default function Index() {
               </LinearGradient>
             </View>
             
-            <Text style={styles.title}>EquipTrack</Text>
+            <Text style={styles.mainTitle}>EquipTrack</Text>
             <Text style={styles.subtitle}>
               Smart Hardware Inventory Management for Law Enforcement
             </Text>
@@ -91,24 +91,7 @@ export default function Index() {
             <View style={styles.featureContainer}>
               <Text style={styles.featureTitle}>Police Inventory Features</Text>
               <View style={styles.featureList}>
-                <View style={styles.featureItem}>
-                  <LinearGradient
-                    colors={[PoliceColors.primaryGradient1, PoliceColors.primaryGradient2]}
-                    style={styles.featureIconBg}
-                  >
-                    <FontAwesome5 name="map-marker-alt" size={16} color={PoliceColors.white} />
-                  </LinearGradient>
-                  <Text style={styles.featureText}>Real-time equipment tracking</Text>
-                </View>
-                <View style={styles.featureItem}>
-                  <LinearGradient
-                    colors={[PoliceColors.primaryGradient1, PoliceColors.primaryGradient2]}
-                    style={styles.featureIconBg}
-                  >
-                    <MaterialIcons name="qr-code-scanner" size={16} color={PoliceColors.white} />
-                  </LinearGradient>
-                  <Text style={styles.featureText}>QR code scanning for quick check-in/out</Text>
-                </View>
+               
                 <View style={styles.featureItem}>
                   <LinearGradient
                     colors={[PoliceColors.primaryGradient1, PoliceColors.primaryGradient2]}
@@ -151,61 +134,29 @@ export default function Index() {
 
           {/* Sign Up Cards Section */}
           <View style={styles.cardsContainer}>
-            <Card style={styles.signupCard}>
-              <LinearGradient
-                colors={[PoliceColors.primaryGradient1, PoliceColors.primaryGradient2]}
-                style={styles.cardGradient}
-              />
-              <Card.Content style={styles.cardContent}>
-                <View style={styles.cardIconContainer}>
-                  <MaterialCommunityIcons name="shield-account" size={60} color={PoliceColors.white} />
-                </View>
-                <Title style={styles.cardTitle}>Department Chief</Title>
-                <Paragraph style={styles.cardDescription}>
-                  Full administrative access to manage department equipment, assign resources, and generate comprehensive reports.
-                </Paragraph>
-              </Card.Content>
-              <Card.Actions style={styles.cardActions}>
-                <TouchableOpacity onPress={handleHeadOfficerSignUp} style={styles.gradientButtonContainer}>
-                  <LinearGradient
-                    colors={[PoliceColors.accentGradient1, PoliceColors.accentGradient2]}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}
-                    style={styles.gradientButton}
-                  >
-                    <Text style={styles.buttonText}>Department Chief Sign Up</Text>
-                  </LinearGradient>
-                </TouchableOpacity>
-              </Card.Actions>
-            </Card>
+            {/* Department Chief Card */}
+            <View style={[styles.card, styles.chiefCard]}>
+              <Text style={styles.icon}>🛡️</Text>
+              <Text style={styles.title}>Department Chief</Text>
+              <Text style={styles.description}>
+                Full administrative access to manage department equipment, assign resources, and generate comprehensive reports.
+              </Text>
+              <TouchableOpacity onPress={handleHeadOfficerSignUp} style={styles.button}>
+                <Text style={styles.buttonText}>Department Chief Sign Up</Text>
+              </TouchableOpacity>
+            </View>
 
-            <Card style={styles.signupCard}>
-              <LinearGradient
-                colors={[PoliceColors.secondaryGradient1, PoliceColors.secondaryGradient2]}
-                style={styles.cardGradient}
-              />
-              <Card.Content style={styles.cardContent}>
-                <View style={styles.cardIconContainer}>
-                  <MaterialCommunityIcons name="account-tie" size={60} color={PoliceColors.white} />
-                </View>
-                <Title style={styles.cardTitle}>Field Officer</Title>
-                <Paragraph style={styles.cardDescription}>
-                  Streamlined access to check out equipment, report status, and submit maintenance requests in real-time.
-                </Paragraph>
-              </Card.Content>
-              <Card.Actions style={styles.cardActions}>
-                <TouchableOpacity onPress={handleOfficerSignUp} style={styles.gradientButtonContainer}>
-                  <LinearGradient
-                    colors={[PoliceColors.accentGradient2, PoliceColors.accentGradient1]}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 1, y: 0 }}
-                    style={styles.gradientButton}
-                  >
-                    <Text style={styles.buttonText}>Field Officer Sign Up</Text>
-                  </LinearGradient>
-                </TouchableOpacity>
-              </Card.Actions>
-            </Card>
+            {/* Field Officer Card */}
+            <View style={[styles.card, styles.officerCard]}>
+              <Text style={styles.icon}>👔</Text>
+              <Text style={styles.title}>Field Officer</Text>
+              <Text style={styles.description}>
+                Streamlined access to check out equipment, report status, and submit maintenance requests in real-time.
+              </Text>
+              <TouchableOpacity onPress={handleOfficerSignUp} style={styles.button}>
+                <Text style={styles.buttonText}>Field Officer Sign Up</Text>
+              </TouchableOpacity>
+            </View>
           </View>
           
           {/* Divider */}
@@ -300,7 +251,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 70,
   },
-  title: {
+  mainTitle: {
     fontSize: 38,
     fontWeight: 'bold',
     color: PoliceColors.white,
@@ -371,70 +322,51 @@ const styles = StyleSheet.create({
     marginBottom: 40,
     gap: 25,
   },
-  signupCard: {
-    borderRadius: 18,
-    overflow: 'hidden',
-    elevation: 8,
-    backgroundColor: 'transparent',
-    shadowColor: PoliceColors.shadow,
-    shadowOffset: {
-      width: 0,
-      height: 8,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 12,
-  },
-  cardGradient: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-  },
-  cardContent: {
-    backgroundColor: 'transparent',
-    paddingVertical: 25,
-  },
-  cardIconContainer: {
+  card: {
+    borderRadius: 20,
+    marginVertical: 15,
+    padding: 30,
     alignItems: 'center',
-    marginBottom: 20,
-    marginTop: 10,
+    shadowColor: '#000',
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 3,
   },
-  cardTitle: {
-    fontSize: 24,
+  chiefCard: {
+    backgroundColor: '#1a3c61',
+  },
+  officerCard: {
+    backgroundColor: '#233142',
+  },
+  icon: {
+    fontSize: 48,
+    marginBottom: 10,
+  },
+  title: {
+    fontSize: 28,
     fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 10,
     textAlign: 'center',
-    color: PoliceColors.white,
-    marginBottom: 15,
   },
-  cardDescription: {
-    fontSize: 15,
+  description: {
+    color: '#fff',
+    fontSize: 16,
+    marginBottom: 30,
     textAlign: 'center',
-    color: PoliceColors.white,
-    lineHeight: 22,
-    marginBottom: 15,
-    paddingHorizontal: 10,
   },
-  cardActions: {
-    justifyContent: 'center',
-    paddingBottom: 25,
-    backgroundColor: 'transparent',
-  },
-  gradientButtonContainer: {
-    width: '85%',
-    borderRadius: 12,
-    overflow: 'hidden',
-  },
-  gradientButton: {
-    paddingVertical: 14,
+  button: {
+    backgroundColor: '#bf2c37',
+    borderRadius: 15,
+    paddingVertical: 18,
+    paddingHorizontal: 20,
+    width: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   buttonText: {
-    color: PoliceColors.white,
-    fontSize: 16,
+    color: '#fff',
     fontWeight: 'bold',
-    letterSpacing: 0.5,
+    fontSize: 20,
   },
   dividerContainer: {
     flexDirection: 'row',
@@ -472,6 +404,12 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     overflow: 'hidden',
     marginBottom: 15,
+  },
+  gradientButton: {
+    width: '100%',
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   loginGradientButton: {
     paddingVertical: 14,
