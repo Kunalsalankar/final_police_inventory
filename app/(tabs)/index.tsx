@@ -46,6 +46,11 @@ export default function Index() {
   const handleLogin = (): void => {
     router.push('/(tabs)/dashboard/login' as any);
   };
+
+  
+  const handletechnical_teamSignUp = (): void => {
+    router.push('/(tabs)/dashboard/teachicalteam' as any);
+  };
   
   return (
     <View style={styles.container}>
@@ -131,11 +136,32 @@ export default function Index() {
               </View>
             </View>
           </BlurView>
+          
 
           {/* Sign Up Cards Section */}
           <View style={styles.cardsContainer}>
             {/* Department Chief Card */}
             <View style={[styles.card, styles.chiefCard]}>
+              <Text style={styles.icon}>🛡️</Text>
+              <Text style={styles.title}>Inventopry</Text>
+              <Text style={styles.description}>
+                Full administrative access to manage department equipment, assign resources, and generate comprehensive reports.
+              </Text>
+              <TouchableOpacity onPress={handletechnical_teamSignUp} style={styles.button}>
+                <Text style={styles.buttonText}>Technical Team Sign Up</Text>
+              </TouchableOpacity>
+            </View>
+             <View style={[styles.card, styles.chiefCard]}>
+              <Text style={styles.icon}>🛡️</Text>
+              <Text style={styles.title}>Department Chief</Text>
+              <Text style={styles.description}>
+                Full administrative access to manage department equipment, assign resources, and generate comprehensive reports.
+              </Text>
+              <TouchableOpacity onPress={handleHeadOfficerSignUp} style={styles.button}>
+                <Text style={styles.buttonText}>Department Chief Sign Up</Text>
+              </TouchableOpacity>
+            </View>
+             <View style={[styles.card, styles.chiefCard]}>
               <Text style={styles.icon}>🛡️</Text>
               <Text style={styles.title}>Department Chief</Text>
               <Text style={styles.description}>
