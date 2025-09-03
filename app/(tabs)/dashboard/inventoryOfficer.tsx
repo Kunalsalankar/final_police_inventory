@@ -242,7 +242,7 @@ export default function HeadOfficer() {
         
         <Appbar.Header style={styles.appbar}>
           <Appbar.BackAction onPress={() => router.back()} color={Colors.white} />
-          <Appbar.Content title="Technical Team Registration" color={Colors.white} />
+          <Appbar.Content title="Inventory Officer Registration" color={Colors.white} />
         </Appbar.Header>
         
         <SafeAreaView style={styles.safeArea}>
@@ -266,7 +266,7 @@ export default function HeadOfficer() {
                     size={60} 
                     color={Colors.white}
                   />
-                  <Text style={styles.headerTitle}>Technical team Registration</Text>
+                  <Text style={styles.headerTitle}>Inventory Officer Registration</Text>
                   <Text style={styles.headerSubtitle}>
                     Create an account to manage your department's resources and personnel
                   </Text>
@@ -497,7 +497,7 @@ export default function HeadOfficer() {
                   loading={loading}
                   disabled={loading}
                 >
-                  Register as Technical Team Officer
+                  Register as Inventory Officer 
                 </Button>
                 
                 <TouchableOpacity style={styles.loginLink} onPress={() => router.replace('/(tabs)/dashboard/login' as any)}>

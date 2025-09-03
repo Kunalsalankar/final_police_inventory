@@ -256,7 +256,7 @@ export default function Officer() {
         
         <Appbar.Header style={styles.appbar}>
           <Appbar.BackAction onPress={() => router.back()} color={Colors.white} />
-          <Appbar.Content title="Police Officer Registration" color={Colors.white} />
+          <Appbar.Content title="Field Officer Registration (Police Officer - User)" color={Colors.white} />
         </Appbar.Header>
         
         <SafeAreaView style={styles.safeArea}>
@@ -280,7 +280,7 @@ export default function Officer() {
                     size={60} 
                     color={Colors.white}
                   />
-                  <Text style={styles.headerTitle}>Police Officer Registration</Text>
+                  <Text style={styles.headerTitle}>Field Officer Registration (Police Officer - User)</Text>
                   <Text style={styles.headerSubtitle}>
                     Create an account to manage and track equipment assigned to you
                   </Text>
@@ -299,9 +299,10 @@ export default function Officer() {
                       onChangeText={setFirstName}
                       mode="outlined"
                       style={styles.input}
+                      colors={{ text: '#000000' }}
                       error={!!firstNameError}
                       left={<TextInput.Icon icon="account" />}
-                      theme={{ colors: { text: '#000000', placeholder: '#555555' } }}
+                      theme={{ colors: { text: '#000000', placeholder: '#0f0606ff' } }}
                     />
                     {!!firstNameError && <HelperText type="error" style={styles.errorText}>{firstNameError}</HelperText>}
                   </View>
@@ -411,14 +412,12 @@ export default function Officer() {
                   placeholder="Enter your department name"
                   theme={{ colors: { text: '#000000', placeholder: '#555555' } }}
                 />
-                {!!departmentError && <HelperText type="error" style={styles.errorText}>{departmentError}</HelperText>}
-                
                 <TextInput
                   label="Police Station"
                   value={policeStation}
                   onChangeText={setPoliceStation}
                   mode="outlined"
-                  style={styles.input}
+                  style={[styles.input, { color: '#000000' }]}
                   error={!!policeStationError}
                   left={<TextInput.Icon icon="domain" />}
                   placeholder="Enter your police station"
@@ -481,7 +480,7 @@ export default function Officer() {
                   loading={loading}
                   disabled={loading}
                 >
-                  Register as Police Officer
+                  Register as Field Officer
                 </Button>
                 
                 <TouchableOpacity style={styles.loginLink} onPress={() => router.replace('/(tabs)/dashboard/login' as any)}>
@@ -575,6 +574,7 @@ const styles = StyleSheet.create({
   input: {
     marginBottom: 8,
     backgroundColor: Colors.white,
+    // color:'#0b0101ff',
   },
   errorText: {
     color: '#FF0000',
@@ -621,7 +621,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   dialogText: {
-    color: '#000000',
+    color: '#000000ff',
     fontSize: 15,
     lineHeight: 22,
   },

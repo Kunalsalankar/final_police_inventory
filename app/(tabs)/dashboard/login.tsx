@@ -115,10 +115,25 @@ source={require('../../../assets/images/logo.jpeg')}
           
           <TouchableOpacity 
             style={styles.selectionButton}
-            onPress={() => handleTypeSelection('officer')}
+            onPress={() => handleTypeSelection('fieldOfficer')}
           >
-            <Text style={styles.selectionButtonText}>Officer</Text>
+            <Text style={styles.selectionButtonText}>Field Officer(Police Officer User)</Text>
           </TouchableOpacity>
+
+           <TouchableOpacity 
+            style={styles.selectionButton}
+            onPress={() => handleTypeSelection('technicalOfficer')}
+          >
+            <Text style={styles.selectionButtonText}>Technical Team</Text>
+          </TouchableOpacity> 
+
+          <TouchableOpacity 
+            style={styles.selectionButton}
+            onPress={() => handleTypeSelection('inventoryOfficer')}
+          >
+            <Text style={styles.selectionButtonText}>Inventory Officer</Text>
+          </TouchableOpacity>
+
         </View>
       </View>
     );

@@ -35,12 +35,20 @@ export default function Index() {
   const router = useRouter();
   const { width } = Dimensions.get('window');
 
-  const handleHeadOfficerSignUp = (): void => {
-    router.push('/(tabs)/dashboard/head-officer' as any);
+  const InventoryOfficerSignUp = (): void => {
+    router.push('/(tabs)/dashboard/inventoryOfficer' as any);
   };
 
-  const handleOfficerSignUp = (): void => {
-    router.push('/(tabs)/dashboard/officer' as any);
+    const HeadOfficerSignUp = (): void => {
+    router.push('/(tabs)/dashboard/headOfficer' as any);
+  };
+
+   const  TechnicalOfficerSignUp = (): void => {
+    router.push('/(tabs)/dashboard/teachicalteam' as any);
+  };
+
+  const PoliceOfficerSignUp = (): void => {
+    router.push('/(tabs)/dashboard/policeofficer' as any);
   };
 
   const handleLogin = (): void => {
@@ -48,9 +56,7 @@ export default function Index() {
   };
 
   
-  const handletechnical_teamSignUp = (): void => {
-    router.push('/(tabs)/dashboard/teachicalteam' as any);
-  };
+  
   
   return (
     <View style={styles.container}>
@@ -140,46 +146,54 @@ export default function Index() {
 
           {/* Sign Up Cards Section */}
           <View style={styles.cardsContainer}>
-            {/* Department Chief Card */}
+            {/* Technical Team Card */}
             <View style={[styles.card, styles.chiefCard]}>
               <Text style={styles.icon}>🛡️</Text>
-              <Text style={styles.title}>Inventopry</Text>
+              <Text style={styles.title}>Technical Team Sign-up</Text>
               <Text style={styles.description}>
-                Full administrative access to manage department equipment, assign resources, and generate comprehensive reports.
+               Access to  maintenance assets and Edit profiles.
+               
               </Text>
-              <TouchableOpacity onPress={handletechnical_teamSignUp} style={styles.button}>
+              <TouchableOpacity onPress={TechnicalOfficerSignUp} style={styles.button}>
                 <Text style={styles.buttonText}>Technical Team Sign Up</Text>
               </TouchableOpacity>
             </View>
+
+            
+            
+               {/* Head Officer Card */}
              <View style={[styles.card, styles.chiefCard]}>
               <Text style={styles.icon}>🛡️</Text>
-              <Text style={styles.title}>Department Chief</Text>
+              <Text style={styles.title}>Head Officer Sign Up</Text>
               <Text style={styles.description}>
-                Full administrative access to manage department equipment, assign resources, and generate comprehensive reports.
+                Full Streamlined access Approval of Inventory/Stocks provided by Inventory Office Manager, Edit profile, and Manage and Add Stock Inventory.
               </Text>
-              <TouchableOpacity onPress={handleHeadOfficerSignUp} style={styles.button}>
-                <Text style={styles.buttonText}>Department Chief Sign Up</Text>
+              <TouchableOpacity onPress={HeadOfficerSignUp} style={styles.button}>
+                <Text style={styles.buttonText}>Head Officer Sign-up</Text>
               </TouchableOpacity>
             </View>
-             <View style={[styles.card, styles.chiefCard]}>
+
+
+               {/* Inventory Manager Card */}
+            <View style={[styles.card, styles.chiefCard]}>
               <Text style={styles.icon}>🛡️</Text>
-              <Text style={styles.title}>Department Chief</Text>
+              <Text style={styles.title}>Inventory Manager Sign Up</Text>
               <Text style={styles.description}>
-                Full administrative access to manage department equipment, assign resources, and generate comprehensive reports.
+                Full administrative access to assign assets to individual,Manage/add stock Inventory, Maintainance asset Record , submit department need  to Head Officer and edit profile.
               </Text>
-              <TouchableOpacity onPress={handleHeadOfficerSignUp} style={styles.button}>
-                <Text style={styles.buttonText}>Department Chief Sign Up</Text>
+              <TouchableOpacity onPress={InventoryOfficerSignUp} style={styles.button}>
+                <Text style={styles.buttonText}>Inventory Officer Sign-up</Text>
               </TouchableOpacity>
             </View>
 
             {/* Field Officer Card */}
             <View style={[styles.card, styles.officerCard]}>
               <Text style={styles.icon}>👔</Text>
-              <Text style={styles.title}>Field Officer</Text>
+              <Text style={styles.title}>Field Officer (Police User)</Text>
               <Text style={styles.description}>
-                Streamlined access to check out equipment, report status, and submit maintenance requests in real-time.
+                Streamlined access to view the assigned items, report issues / complaint, and edit profile information.
               </Text>
-              <TouchableOpacity onPress={handleOfficerSignUp} style={styles.button}>
+              <TouchableOpacity onPress={PoliceOfficerSignUp} style={styles.button}>
                 <Text style={styles.buttonText}>Field Officer Sign Up</Text>
               </TouchableOpacity>
             </View>
