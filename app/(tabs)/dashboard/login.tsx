@@ -8,7 +8,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { db, auth } from '../../../lib/firebase';
 
 // Define officer type options
-type OfficerType = 'headOfficer' | 'officer';
+type OfficerType = 'headOfficer' | 'officer' | 'fieldOfficer' | 'technicalOfficer' | 'inventoryOfficer';
 
 export default function LoginScreen() {
   // State management for form inputs and loading state

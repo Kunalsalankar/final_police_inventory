@@ -151,8 +151,7 @@ export default function Index() {
               <Text style={styles.icon}>🛡️</Text>
               <Text style={styles.title}>Technical Team Sign-up</Text>
               <Text style={styles.description}>
-               Access to  maintenance assets and Edit profiles.
-               
+                Manage and maintain equipment, receive maintenance alerts, and update technical team profiles. For officers responsible for technical support and asset upkeep.
               </Text>
               <TouchableOpacity onPress={TechnicalOfficerSignUp} style={styles.button}>
                 <Text style={styles.buttonText}>Technical Team Sign Up</Text>
@@ -166,7 +165,7 @@ export default function Index() {
               <Text style={styles.icon}>🛡️</Text>
               <Text style={styles.title}>Head Officer Sign Up</Text>
               <Text style={styles.description}>
-                Full Streamlined access Approval of Inventory/Stocks provided by Inventory Office Manager, Edit profile, and Manage and Add Stock Inventory.
+                Approve inventory and stock requests, manage and add stock, and edit your profile. Head Officers have full oversight of inventory operations and departmental resources.
               </Text>
               <TouchableOpacity onPress={HeadOfficerSignUp} style={styles.button}>
                 <Text style={styles.buttonText}>Head Officer Sign-up</Text>
@@ -179,7 +178,7 @@ export default function Index() {
               <Text style={styles.icon}>🛡️</Text>
               <Text style={styles.title}>Inventory Manager Sign Up</Text>
               <Text style={styles.description}>
-                Full administrative access to assign assets to individual,Manage/add stock Inventory, Maintainance asset Record , submit department need  to Head Officer and edit profile.
+                Assign assets to officers, manage and add inventory, maintain asset records, submit departmental needs to Head Officer, and edit your profile. Inventory Managers oversee all inventory logistics and records.
               </Text>
               <TouchableOpacity onPress={InventoryOfficerSignUp} style={styles.button}>
                 <Text style={styles.buttonText}>Inventory Officer Sign-up</Text>
@@ -191,7 +190,7 @@ export default function Index() {
               <Text style={styles.icon}>👔</Text>
               <Text style={styles.title}>Field Officer (Police User)</Text>
               <Text style={styles.description}>
-                Streamlined access to view the assigned items, report issues / complaint, and edit profile information.
+                Access your assigned equipment, report issues or complaints, and update your personal profile. Designed for police officers working in the field to efficiently manage and track their inventory and requests.
               </Text>
               <TouchableOpacity onPress={PoliceOfficerSignUp} style={styles.button}>
                 <Text style={styles.buttonText}>Field Officer Sign Up</Text>

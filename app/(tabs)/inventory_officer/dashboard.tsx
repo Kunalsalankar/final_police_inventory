@@ -34,10 +34,10 @@ const PoliceColors = {
 
 // Define the module routes explicitly
 const moduleRoutes: Record<string, string> = {
-  assign: '/(tabs)/inventory_officer/assign',
-  handover: '/(tabs)/inventory_officer/handover',
-  maintenance: '/(tabs)/inventory_officer/maintenance',
-  inventory: '/(tabs)/inventory_officer/inventory',
+  assign: '/(tabs)/inventory_officer/assign1',
+  handover: '/(tabs)/inventory_officer/handover1',
+  maintenance: '/(tabs)/inventory_officer/maintenance1',
+  inventory: '/(tabs)/inventory_officer/inventory1',
 };
 
 export default function DashboardScreen(): React.ReactElement {

@@ -299,7 +299,6 @@ export default function Officer() {
                       onChangeText={setFirstName}
                       mode="outlined"
                       style={styles.input}
-                      colors={{ text: '#000000' }}
                       error={!!firstNameError}
                       left={<TextInput.Icon icon="account" />}
                       theme={{ colors: { text: '#000000', placeholder: '#0f0606ff' } }}
